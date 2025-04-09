@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css"
+      href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+    <meta charset="utf-8">
+    <title>Liste des Chiens</title>
+</head>
+<body>
+<div th:replace="template"></div>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Liste des Chiens
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th><th>Nom Chien</th><th>Age</th><th>Race</th>
+                </tr>
+                <tr th:each="chien : ${chiens.content}">
+                    <td th:text="${chien.id}"></td>
+                    <td th:text="${chien.nom}"></td>
+                    <td th:text="${chien.age}"></td>
+                    <td th:text="${chien.race}"></td>
+                    <td><a class="btn btn-danger" onclick="return confirm('Êtes-vous sûr ?')"
+                           th:href="@{supprimerChien(id=${chien.id}, page=${currentPage}, size=${size})}">Supprimer</a></td>
+                </tr>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page, status : ${pages}">
+                    <a th:class="${status.index == currentPage ? 'btn btn-primary' : 'btn'}"
+                       th:href="@{ListeChiens(page=${status.index}, size=${size})}"
+                       th:text="${status.index}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
