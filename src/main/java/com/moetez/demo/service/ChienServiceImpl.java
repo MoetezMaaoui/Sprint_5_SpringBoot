@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import com.moetez.demo.entities.Chien;
 import com.moetez.demo.entities.Veterinaire;
 import com.moetez.demo.repos.ChienRepository;
+import com.moetez.demo.repos.VeterinaireRepository;
 
 @Service
 public class ChienServiceImpl implements ChienService {
 
     @Autowired
     private ChienRepository chienRepository;
+    
+    @Autowired
+    VeterinaireRepository veterinaireRepository;
 
     @Override
     public Chien saveChien(Chien c) {
@@ -85,6 +89,12 @@ public class ChienServiceImpl implements ChienService {
     @Override
     public List<Chien> trierChiensNomsAge() {
         return chienRepository.trierChiensNomsAge();
+    }
+    
+    
+    @Override
+    public List<Veterinaire> getAllVeterinaires() {
+    return veterinaireRepository.findAll();
     }
 
     

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajout Chien</title>
+    <link rel="stylesheet"
+          href="webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container mt-5">
+	<div class="card">
+	    <div class="card-header" th:if="${mode=='new'}"> Ajout d'un Chien </div>
+	    <div class="card-header" th:if="${mode=='edit'}"> Modification d'un Chien </div>
+	    <div class="card-body">
+	        <form th:action="@{saveChien}" th:object="${chien}" method="post">
+	            <div class="form-group">
+	                <label class="control-label" hidden>ID :</label>
+	                <input type="hidden" name="id" class="form-control"
+	                       th:value="${chien.id}" />
+	            </div>
+				
+				<input name="page" class="form-control" th:value="${page}" />
+				<input name="size" class="form-control" th:value="${size}" />
+
+			    <div class="form-group">
+			        <label class="control-label">Nom :</label>
+			        <input type="text" th:field="*{nom}" class="form-control" />
+			        <span th:errors="*{nom}" class="text-danger"></span>
+			    </div>
+
+			    <div class="form-group">
+			        <label class="control-label">Race :</label>
+			        <input type="text" th:field="*{race}" class="form-control" />
+			        <span  th:errors="*{race}" class="text-danger"></span>
+			    </div>
+
+			    <div class="form-group">
+			        <label class="control-label">Âge :</label>
+			        <input type="number" th:field="*{age}" class="form-control" />
+			        <span  th:errors="*{age}" class="text-danger"></span>
+			    </div>
+				
+				<div class="form-group">
+					<label class="control-label">Veterinaires :</label>
+					<select name="veterinaire" class="form-control"
+					           th:value="${chien.veterinaire.idVet}"
+					           th:if="${!#strings.isEmpty(chien.veterinaire)}">
+					       <option th:each="v : ${veterinaires}" th:if="${mode=='edit'}"
+					               th:value="${v.idVet}" th:text="${v.nomVet}"
+					               th:selected="${v.idVet == chien.veterinaire.idVet}">
+					       </option>
+					   </select>
+
+					   <!-- For new chien (veterinaire is empty) -->
+					   <select name="veterinaire" class="form-control"
+					           th:if="${#strings.isEmpty(chien.veterinaire)}">
+					       <option th:each="v : ${veterinaires}" th:value="${v.idVet}"
+					               th:text="${v.nomVet}">
+					       </option>
+					   </select>
+				  </div>
+
+			    <div>
+			        <button type="submit" class="btn btn-primary">Ajouter</button>
+			    </div>
+			</form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -26,29 +26,6 @@ public class Veterinaire {
     @JsonIgnore
     @OneToMany(mappedBy = "veterinaire")
     private List<Chien> chiens;
-
-    public Long getidVet() {
-        return idVet;
-    }
-
-    public void setidVet(Long id) {
-        this.idVet = id;
-    }
-    
-    public String getnomVet() {
-        return nomVet;
-    }
-
-    public void setnomVet(String nom) {
-        this.nomVet = nom;
-    }
-    
-    public String getspecialite() {
-        return specialite;
-    }
-
-    public void setspecialite(String sp) {
-        this.specialite = sp;
-    }
+ 
    
 }

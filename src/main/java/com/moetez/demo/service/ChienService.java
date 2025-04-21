@@ -25,4 +25,6 @@ public interface ChienService {
     List<Chien> findByOrderByNomChienAsc();
     List<Chien> trierChiensNomsAge();
 
+    List<Veterinaire> getAllVeterinaires();
+
 }
