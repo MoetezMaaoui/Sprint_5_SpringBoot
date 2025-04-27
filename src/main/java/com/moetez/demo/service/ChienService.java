@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.moetez.demo.dto.ChienDTO;
 import com.moetez.demo.entities.Chien;
 import com.moetez.demo.entities.Veterinaire;
 
 public interface ChienService {
-    Chien saveChien(Chien c);
-    Chien updateChien(Chien c);
+	ChienDTO saveChien(ChienDTO c);
+	ChienDTO updateChien(ChienDTO c);
     void deleteChien(Chien c);
     void deleteChienById(Long id);
-    Chien getChien(Long id);
-    List<Chien> getAllChiens();
+    ChienDTO getChien(Long id);
+    List<ChienDTO> getAllChiens();
     
     public Page<Chien> getChiensParPage(int page, int size);
     
@@ -26,5 +27,10 @@ public interface ChienService {
     List<Chien> trierChiensNomsAge();
 
     List<Veterinaire> getAllVeterinaires();
+    
+    ChienDTO convertEntityToDto (Chien chien);
+    Chien convertDtoToEntity (ChienDTO chienDTO);
+
+  
 
 }

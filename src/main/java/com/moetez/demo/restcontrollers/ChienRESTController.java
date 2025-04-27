@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.moetez.demo.dto.ChienDTO;
 import com.moetez.demo.entities.Chien;
 import com.moetez.demo.service.ChienService;
 
@@ -21,23 +22,23 @@ public class ChienRESTController {
 	@Autowired
 	ChienService chienService;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	List<Chien> getAllChiens(){
+	@RequestMapping(value="all",method=RequestMethod.GET)
+	public List<ChienDTO> getAllChiens(){
 		return chienService.getAllChiens();
 	}
 	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	public Chien getChienById(@PathVariable("id") Long id) {
-	return chienService.getChien(id);
+	public ChienDTO getChienById(@PathVariable("id") Long id) {
+		return chienService.getChien(id);
 	 }
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Chien createChien(@RequestBody Chien chien) {
-	return chienService.saveChien(chien);
+	public ChienDTO createChien(@RequestBody ChienDTO chien) {
+		return chienService.saveChien(chien);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public Chien editerChien(@RequestBody Chien chien) {
-	return chienService.updateChien(chien);
+	public ChienDTO editerChien(@RequestBody ChienDTO chien) {
+		return chienService.updateChien(chien);
 	}
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)

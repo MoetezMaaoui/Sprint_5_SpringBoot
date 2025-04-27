@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.moetez.demo.dto.ChienDTO;
 import com.moetez.demo.entities.Chien;
 import com.moetez.demo.entities.Veterinaire;
 import com.moetez.demo.service.ChienService;
@@ -31,19 +33,8 @@ public class ChienController {
 		return "index"; 
 	} 
 
-	@Bean 
-	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception 
-	{ 
-		http.authorizeHttpRequests((requests)->requests 
-				.requestMatchers("/showCreate","/saveChien").hasAnyAuthority("ADMIN","AGENT") 
-				.requestMatchers("/ListeChiens").hasAnyAuthority("ADMIN","AGENT","USER") 
-				.anyRequest().authenticated()) 
-		.formLogin(Customizer.withDefaults()) 
-		.httpBasic(Customizer.withDefaults())
-		.exceptionHandling((exception)-> 
-		exception.accessDeniedPage("/accessDenied"));
-		return http.build(); 
-	} 
+	
+
 
 	@RequestMapping("/ListeChiens")
 	public String listeChiens(ModelMap modelMap, 
@@ -70,7 +61,7 @@ public class ChienController {
 	}
 
 	@RequestMapping("/saveChien")
-	public String saveChien(@Valid Chien chien, BindingResult bindingResult,
+	public String saveChien(@Valid ChienDTO chien, BindingResult bindingResult,
 			@RequestParam(name="page", defaultValue = "0") int page,
 			@RequestParam(name="size", defaultValue = "2") int size)
 	{
@@ -117,7 +108,7 @@ public class ChienController {
 	@RequestMapping("/modifierChien")
 	public String editerChien(@RequestParam("id") Long id, ModelMap modelMap,@RequestParam(name="page", defaultValue = "0") int page,
 			@RequestParam(name="size", defaultValue = "2") int size) {
-		Chien chien = chienService.getChien(id);  // Get the Chien object by its ID
+		ChienDTO chien = chienService.getChien(id);  // Get the Chien object by its ID
 		List<Veterinaire> vets = chienService.getAllVeterinaires();  // Get the list of veterinarians
 		modelMap.addAttribute("chien", chien);
 		modelMap.addAttribute("mode", "edit");
@@ -128,10 +119,10 @@ public class ChienController {
 	}
 
 	@RequestMapping("/updateChien")
-	public String updateChien(@ModelAttribute("chien") Chien chien, ModelMap modelMap) {
+	public String updateChien(@ModelAttribute("chien") ChienDTO chien, ModelMap modelMap) {
 		chienService.updateChien(chien);
-		List<Chien> chiens = chienService.getAllChiens();
+		List<ChienDTO> chiens = chienService.getAllChiens();
 		modelMap.addAttribute("chiens", chiens);
-		return "listeChiens";
+		return "redirect:/listeChiens";
 	}
 }
