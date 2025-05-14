@@ -15,14 +15,14 @@ import com.moetez.demo.entities.Chien;
 import com.moetez.demo.service.ChienService;
 
 @RestController
-@RequestMapping("api")
-@CrossOrigin
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ChienRESTController {
 
 	@Autowired
 	ChienService chienService;
 	
-	@RequestMapping(value="all",method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public List<ChienDTO> getAllChiens(){
 		return chienService.getAllChiens();
 	}

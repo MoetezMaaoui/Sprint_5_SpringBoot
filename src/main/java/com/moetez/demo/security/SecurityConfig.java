@@ -14,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain; 
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer; 
  
 @Configuration 
 public class SecurityConfig { 
@@ -45,7 +47,7 @@ public class SecurityConfig {
 	
 	@Bean 
  	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception { 
- 	    http.authorizeHttpRequests((requests) -> requests
+ 	    /*http.authorizeHttpRequests((requests) -> requests
  	            .requestMatchers("/login", "/webjars/**").permitAll()
  	            .requestMatchers("/modifierChien", "/supprimerChien").hasAnyAuthority("ADMIN")
  	            .requestMatchers("/showCreate", "/saveChien").hasAnyAuthority("ADMIN", "AGENT")
@@ -59,9 +61,21 @@ public class SecurityConfig {
  	        .exceptionHandling((exception) -> 
  	            exception.accessDeniedPage("/accessDenied"));
 
- 	    return http.build(); 
+ 	    return http.build(); */
+		http
+        .csrf().disable() // désactive la protection CSRF (utile pour tests simples)
+        .authorizeHttpRequests(authorize -> authorize
+            .anyRequest().permitAll()
+        )
+        .formLogin().disable()  // désactive le formulaire de login
+        .httpBasic().disable(); // désactive l'authentification HTTP Basic
+
+    return http.build();
  	}
      
+	
+
+	
      @Bean 
      public PasswordEncoder passwordEncoder () { 
       return new BCryptPasswordEncoder(); 

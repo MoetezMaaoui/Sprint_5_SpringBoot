@@ -4,8 +4,8 @@ import java.util.Date;
 
 import com.moetez.demo.entities.Veterinaire;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,5 +19,5 @@ public class ChienDTO {
 	private int age;
 	private String race;
 	private Veterinaire veterinaire;
-	private String nomvet;
+	//private String nomvet;
 }
