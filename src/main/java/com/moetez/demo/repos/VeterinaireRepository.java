@@ -8,9 +8,8 @@ import com.moetez.demo.entities.Chien;
 import com.moetez.demo.entities.Veterinaire;
 
 @RepositoryRestResource(path = "vet")
-@CrossOrigin("http://localhost:4200/") 
+@CrossOrigin(origins ="http://localhost:4200/") 
 public interface VeterinaireRepository extends JpaRepository<Veterinaire, Long>{
 
 	
-
 }

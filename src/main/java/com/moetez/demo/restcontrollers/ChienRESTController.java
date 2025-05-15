@@ -22,7 +22,7 @@ public class ChienRESTController {
 	@Autowired
 	ChienService chienService;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(path="all",method=RequestMethod.GET)
 	public List<ChienDTO> getAllChiens(){
 		return chienService.getAllChiens();
 	}
@@ -31,17 +31,17 @@ public class ChienRESTController {
 		return chienService.getChien(id);
 	 }
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(path="/addchien" , method = RequestMethod.POST)
 	public ChienDTO createChien(@RequestBody ChienDTO chien) {
 		return chienService.saveChien(chien);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(path="/updatechien" ,method = RequestMethod.PUT)
 	public ChienDTO editerChien(@RequestBody ChienDTO chien) {
 		return chienService.updateChien(chien);
 	}
 	
-	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+	@RequestMapping(path="/delchien" ,value="/{id}",method = RequestMethod.DELETE)
 	public void deleteChien(@PathVariable("id") Long id){
 		chienService.deleteChienById(id);
 	}
